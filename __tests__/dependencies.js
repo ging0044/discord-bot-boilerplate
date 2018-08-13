@@ -1,4 +1,4 @@
-const dependencies = require("../src/dependencies");
+const dependencies = require("../src/dependencyManager");
 
 it("initializes dependencies with an empty map", () => {
   dependencies.init(new Map());

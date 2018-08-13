@@ -1,18 +1,14 @@
 require("dotenv").config();
-
-// require dependency manager
-const dependencies = require("./src/dependencies");
-dependencies.init(new Map()); // TODO: clean up main.js
+const dependencyManager = require("./src/dependencyManager");
+const { requireDir } = require("./src/utils.js");
+// TODO: clean up main.js
 
 class Main {
   constructor() {
     this.version = "0.0.0";
   }
 }
-
-dependencies.register("main", new Main());
-
-const { requireDir } = require("./src/utils.js");
+dependencyManager.register("main", new Main());
 
 const sources = [
   "./src/lib",
@@ -31,7 +27,7 @@ Promise.all(
       })
   )
 ).then(() => {
-  const logger = dependencies.get("logger");
+  const logger = dependencyManager.get("logger");
   logger("Main").info("Finished requiring files");
 }).catch(err => {
   console.error(err, err.stack);

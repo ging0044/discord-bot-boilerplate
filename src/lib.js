@@ -1,7 +1,14 @@
 class Lib {
   constructor() {
     this.name = this.constructor.name;
-    this.includes = require("./dependencies");
+
+    /**
+     * Dependency manager instance.
+     *
+     * @name Lib#includes
+     * @type {{init, register, get}}
+     */
+    this.includes = require("./dependencyManager");
   }
 }
 

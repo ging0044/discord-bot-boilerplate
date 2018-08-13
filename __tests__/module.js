@@ -1,5 +1,5 @@
 const Module = require("../src/module");
-const dependencies = require("../src/dependencies");
+const dependencies = require("../src/dependencyManager");
 dependencies.init({
   discord: "discord",
   logger: name => name,
