@@ -1,0 +1,30 @@
+{
+  "name": "discord-bot-boilerplate",
+  "version": "1.0.0",
+  "description": "A discord bot boilerplate",
+  "main": "main.js",
+  "scripts": {
+    "run": "node main.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "eris",
+    "boilerplate"
+  ],
+  "author": "Patrick Gingras",
+  "license": "ISC",
+  "dependencies": {
+    "cldr-data": "^32.0.1",
+    "dotenv": "^6.0.0",
+    "eris": "^0.9.0",
+    "globalize": "^1.4.0",
+    "log4js": "^3.0.4",
+    "ramda": "^0.25.0",
+    "raven": "^2.6.3"
+  },
+  "devDependencies": {
+    "jest": "^23.5.0"
+  }
+}
