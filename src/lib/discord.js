@@ -20,8 +20,12 @@ class Discord extends Lib {
   }
 
   getLogger() {
-    const logger = this.includes.get("logger")(this.name);
-    return logger || console;
+    try {
+      return this.includes.get("logger")(this.name);
+    }
+    catch (_) {
+      return console;
+    }
   }
 
   ready() {
