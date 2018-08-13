@@ -60,6 +60,90 @@ class DependencyManager {
   register(name, dep) {
     this.store.set(name.toLocaleLowerCase(), dep);
   }
+
+  /**
+   * Check if there is a value at the given key
+   *
+   * @param {string} name The key to check
+   * @returns {boolean} True if value at key exists
+   */
+  has(name) {
+    return this.store.has(name);
+  }
+
+  /**
+   * Clear all dependencies
+   *
+   * @return void
+   */
+  clear() {
+    return this.store.clear();
+  }
+
+  /**
+   * Delete a dependency by key
+   *
+   * @param {string} name Key to delete
+   * @returns {boolean} True if successful
+   */
+  delete(name) {
+    return this.store.delete(name);
+  }
+
+  /**
+   * Get the entries of the dependency map
+   *
+   * @returns {IterableIterator<[string , *]>}
+   */
+  entries() {
+    return this.store.entries();
+  }
+
+  /**
+   * Get the keys of the dependency map
+   *
+   * @returns {IterableIterator<string>}
+   */
+  keys() {
+    return this.store.keys();
+  }
+
+  /**
+   * Get the values of the dependency map
+   *
+   * @returns {IterableIterator<string>}
+   */
+  values() {
+    return this.store.values();
+  }
+
+  /**
+   * Do something to an element of the dependency map
+   *
+   * @callback forEachCallback
+   * @param {string} key The key of the current element
+   * @param {*} value The value of the map at the current iteration
+   * @param {Map<string, *>} map The entire dependency map
+   */
+
+  /**
+   * Do something for each element in the map
+   *
+   * @param {forEachCallback} fn The function to call for each
+   * element of the map
+   */
+  forEach(fn) {
+    return this.store.forEach(fn);
+  }
+
+  /**
+   * Get the size of the map
+   *
+   * @returns {number} The size of the underlying dependency map
+   */
+  get size() {
+    return this.store.size;
+  }
 }
 
 module.exports = new DependencyManager(new Map());
