@@ -30,6 +30,6 @@ Promise.all(
   const logger = dependencyManager.get("logger");
   logger("Main").info("Finished requiring files");
 }).catch(err => {
-  console.error(err, err.stack);
+  process.stderr.write(`${err.toString()}\n${err.stack.toString()}\n`);
   process.exit(1);
 });
