@@ -1,18 +1,16 @@
+/**
+ * DependencyManager class does what it says on the tin. You register a
+ * dependency in it, and then other things can get the dependency indirectly.
+ * This means that you can swap the dependencies with a mock or a replacement,
+ * and (so long as the interface remains the same), the code that requires it
+ * will have no idea.
+ */
 class DependencyManager {
-  constructor() {
-    this.setStore = this.setStore.bind(this);
+  constructor(store) {
+    this.store = store;
+
     this.get = this.get.bind(this);
     this.register = this.register.bind(this);
-  }
-
-  /**
-   * Initialize the dependency manager with some way to store the deps
-   *
-   * @param {Map} store Something to put the dependencies into
-   * @return undefined
-   */
-  setStore(store) {
-    this.store = store;
   }
 
   /**
