@@ -3,8 +3,17 @@ const dependencyManager = require("./src/dependencyManager");
 const { requireDir } = require("./src/utils.js");
 // TODO: clean up main.js
 
+/**
+ * Main class contains the information about the bot itself.
+ */
 class Main {
   constructor() {
+    /**
+     * The current version of the bot
+     *
+     * @name Main#version
+     * @type {string}
+     */
     this.version = "0.0.0";
   }
 }
