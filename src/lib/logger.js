@@ -1,57 +1,16 @@
-const R = require("ramda");
 const Lib = require("../lib");
+const loggerConfig = require("../../logger.config");
 
-const loggerConfig = {
-  appenders: {
-    console: { type: "stdout" },
-    consoleErr: { type: "stderr" },
-    logFile: { type: "file", filename: "./log/normal.log" },
-    errFile: { type: "file", filename: "./log/error.log" },
-    normal: {
-      type: "logLevelFilter",
-      appender: "console",
-      level: "debug",
-      maxLevel: "warn",
-    },
-    error: {
-      type: "logLevelFilter",
-      appender: "consoleErr",
-      level: "error",
-    },
-    normalFile: {
-      type: "logLevelFilter",
-      appender: "logFile",
-      level: "debug",
-      maxLevel: "warn",
-      maxLogSize: 5000000,
-      compress: true,
-    },
-    errorFile: {
-      type: "logLevelFilter",
-      appender: "errFile",
-      level: "warn",
-    },
-  },
-  categories: {
-    default: {
-      appenders: [
-        "normal",
-        "normalFile",
-        "error",
-        "errorFile",
-      ],
-      level: "debug",
-    },
-  }
-};
-const logLevels = [
-  "debug",
-  "info",
-  "warn",
-  "error",
-  "fatal",
-];
+/**
+ * Logging levels that are supported by both log4js and sentry
+ *
+ * @type {string[]}
+ */
+const logLevels = ["debug", "info", "warn", "error", "fatal"];
 
+/**
+ * Logger class, wraps both log4js and sentry, so both happen at the same time
+ */
 class Logger extends Lib {
   constructor() {
     super();
@@ -77,6 +36,15 @@ class Logger extends Lib {
     this.logger = log4js.getLogger();
   }
 
+  /**
+   * Log a message to the console, to a file, and to sentry
+   *
+   * @param {string} level The level to log at (must be one of {@link logLevels}
+   * @param {string} namespace The namespace to log in (adds a prefix to the message)
+   * @param {string} message The message to log
+   * @param {*} data Any data, to be sent to the console/file/sentry
+   * @return undefined
+   */
   log(level, namespace, message, data = "") {
     this.logger[level](`${namespace}: ${message}`, data);
     if (level === "error") {
@@ -86,11 +54,17 @@ class Logger extends Lib {
     }
   }
 
+  /**
+   * Make a logger object, with functions for each log level
+   *
+   * @param {string} namespace The namespace to prefix the log with
+   * @return {Object<string, function>} Object with a function for each log level
+   */
   createLogger(namespace) {
-    return R.reduce((acc, level) => {
-      acc[level] = R.partial(this.log, [level, namespace]);
+    return logLevels.reduce((acc, level) => {
+      acc[level] = this.log.bind(this, level, namespace);
       return acc;
-    },{}, logLevels);
+    }, {});
   }
 }
 
