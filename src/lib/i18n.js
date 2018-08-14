@@ -1,25 +1,37 @@
 const Lib = require("../lib");
-const R = require("ramda");
 const cldr_data = require("cldr-data");
 const Globalize = require("globalize");
-
-console.info("Loading all the locale stuff into ram...");
-Globalize.load(cldr_data.all());
 // TODO: load message files too
-const i = R.reduce(// TODO: make sure this works (how much RAM?)
-  (acc, loc) => {
-    acc[loc] = new Globalize(loc);
-    return acc;
-  },
-  {},
-  cldr_data.availableLocales
-);
 
 class Internationalization extends Lib {
-  constructor(loc) {
+  constructor() {
     super();
 
     this.includes.register(this.name, Internationalization);
+
+    this.loadI18nData()
+      .then(() =>
+        this.getLogger().info("Loaded i18n stuff"))
+      .catch((e) =>
+        this.getLogger().error(`Failed to load i18n stuff: ${e}\n${e.stack}`));
+  }
+
+  async loadI18nData() {
+    return await new Promise((resolve, reject) => {
+      try {
+        process.stdout.write("Loading all the locale stuff into ram...\n");
+        Globalize.load(cldr_data.all());
+
+        Internationalization.i = cldr_data.availableLocales.reduce((acc, loc) => {
+          acc[loc] = new Globalize(loc);
+          return acc;
+        }, {});
+        resolve();
+      }
+      catch (e) {
+        reject(e);
+      }
+    });
   }
 
   static m(loc, message) {
@@ -28,7 +40,5 @@ class Internationalization extends Lib {
 
   // TODO: add wrappers around a bunch of i18n stuff (pluralize, dates, whatever)
 }
-
-Internationalization.i = i;
 
 module.exports = new Internationalization();
