@@ -1,3 +1,5 @@
+const DependencyManager = require("../DependencyManager");
+
 /**
  * Abstract class for use in modules. These are loaded after all libs and models,
  * and can freely require dependencies. By default, the logger, discord client
@@ -13,8 +15,6 @@ class Module {
      * @type String
      */
     this.name = this.constructor.name;
-
-    const DependencyManager = require("../DependencyManager");
 
     /**
      * Instance of DependencyManager. Any libs that are registered in the

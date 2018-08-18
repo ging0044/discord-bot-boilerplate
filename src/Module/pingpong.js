@@ -10,10 +10,10 @@ class Pingpong extends Module {
       "ping",
       () => {
         this.logger.debug("received ping, returning pong");
-        return this.i.m("en", "modules.ping.pong");
+        return this.i.getMessage("en", "modules/pingpong/pong");
       },
       {
-        description: "Guess.",
+        description: this.i.getMessage("en", "module/pingpong/description"),
         usage: "ping",
       }
     );

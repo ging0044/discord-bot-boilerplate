@@ -1,10 +1,11 @@
 const Module = require(".");
+const App = require("../Model/App");
 
 class Version extends Module {
   constructor() {
     super();
 
-    this.app = this.dependencyManager.get("app");
+    this.app = new App();
   }
 
   execute() {
@@ -12,7 +13,7 @@ class Version extends Module {
       "version",
       this.app.version,
       {
-        description: "version of bot"
+        description: this.i.getMessage("en", "module/version/description")
       }
     );
   }
