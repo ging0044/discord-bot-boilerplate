@@ -3,17 +3,15 @@
  */
 class App {
   constructor() {
+    this._meta = require("../../package");
+
     /**
      * The current version of the bot
      *
      * @name App#version
      * @type {string}
      */
-    this.version = "0.0.0";
-  }
-
-  execute() {
-    return this;
+    this.version = this._meta.version;
   }
 }
 
