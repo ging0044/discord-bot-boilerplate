@@ -1,9 +1,11 @@
-const Module = require("../module");
+const Module = require(".");
 
 class Pingpong extends Module {
   constructor() {
     super();
+  }
 
+  execute() {
     const command = this.discord.registerCommand(
       "ping",
       () => {
@@ -20,4 +22,4 @@ class Pingpong extends Module {
   }
 }
 
-module.exports = new Pingpong();
+module.exports = Pingpong;

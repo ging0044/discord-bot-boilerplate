@@ -1,5 +1,5 @@
-const Lib = require("../lib");
-const loggerConfig = require("../../logger.config");
+const Lib = require("..");
+const loggerConfig = require("../../../logger.config");
 
 /**
  * Logging levels that are supported by both log4js and sentry
@@ -20,8 +20,10 @@ class Logger extends Lib {
 
     this.initRaven();
     this.initLogger();
+  }
 
-    this.includes.register(this.name, this.createLogger);
+  execute() {
+    return this.createLogger;
   }
 
   initRaven() {
@@ -68,4 +70,4 @@ class Logger extends Lib {
   }
 }
 
-module.exports = new Logger();
+module.exports = Logger;

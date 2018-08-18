@@ -1,4 +1,4 @@
-const Lib = require("../src/lib");
+const Lib = require("../src/Lib");
 const dependencies = require("../src/dependencyManager");
 
 it("correctly determines the name of the subclass", () => {

@@ -1,0 +1,7 @@
+{
+  "runtimeDirectories": [
+    "src/Lib",
+    "src/Model",
+    "src/Module"
+  ]
+}

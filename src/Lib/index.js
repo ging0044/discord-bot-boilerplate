@@ -16,18 +16,20 @@ class Lib {
      */
     this.name = this.constructor.name;
 
+    const DependencyManager = require("../DependencyManager");
     /**
      * Dependency manager instance.
      *
      * @name Lib#includes
      * @type {{init, register, get}}
      */
-    this.includes = require("./dependencyManager");
+    this.dependencyManager = DependencyManager.getInstance();
   }
 
   getLogger() {
-    if (this.includes.has("logger")) {
-      return this.includes.get("logger")(this.name);
+    const logger = this.dependencyManager.get("logger");
+    if (typeof logger === "function") {
+      return logger(this.name);
     }
     return console;
   }

@@ -1,14 +1,16 @@
-const Module = require("../module");
+const Module = require(".");
 
 class Version extends Module {
   constructor() {
     super();
 
-    this.main = this.require("main");
+    this.app = this.dependencyManager.get("app");
+  }
 
+  execute() {
     this.discord.registerCommand(
       "version",
-      this.main.version,
+      this.app.version,
       {
         description: "version of bot"
       }
@@ -16,4 +18,4 @@ class Version extends Module {
   }
 }
 
-module.exports = new Version();
+module.exports = Version;

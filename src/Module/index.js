@@ -14,13 +14,15 @@ class Module {
      */
     this.name = this.constructor.name;
 
+    const DependencyManager = require("../DependencyManager");
+
     /**
      * Instance of DependencyManager. Any libs that are registered in the
      * dependency manager can be retrieved through this.
      *
      * @type {DependencyManager}
      */
-    this.dependencyManager = require("./dependencyManager");
+    this.dependencyManager = DependencyManager.getInstance();
 
     /**
      * Logger with namespace of this.name. All functions log to the console and
@@ -34,7 +36,7 @@ class Module {
      * @property {function} error Log something that is a problem
      * @property {function} fatal Log something that is a <em>big</em> problem
      */
-    this.logger = this.require("logger")(this.name);
+    this.logger = this.dependencyManager.get("logger")(this.name);
 
     /**
      * Discord bot instance
@@ -42,24 +44,14 @@ class Module {
      * @type {Eris.CommandClient}
      * @see {@link https://abal.moe/Eris/docs/CommandClient}
      */
-    this.discord = this.require("discord");
+    this.discord = this.dependencyManager.get("discord");
 
     /**
      * Internationalization object
      *
      * @type {Internationalization}
      */
-    this.i = this.require("internationalization");
-  }
-
-  /**
-   * Get a dependency using a familiar function name
-   *
-   * @param name name of dependency to get
-   * @returns {*} the dependency
-   */
-  require(name) {
-    return this.dependencyManager.get(name);
+    this.i = this.dependencyManager.get("internationalization");
   }
 }
 

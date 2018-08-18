@@ -13,6 +13,10 @@ class Configuration { // TODO: figure out this whole config-in-db thing
   save() {
 
   }
+
+  execute() { // TODO
+    return this;
+  }
 }
 
 module.exports = Configuration;

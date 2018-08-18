@@ -1,5 +1,5 @@
 const Eris = require("eris");
-const Lib = require("../lib");
+const Lib = require("..");
 
 class Discord extends Lib {
   constructor() {
@@ -12,20 +12,13 @@ class Discord extends Lib {
       description: "",
     });
 
-    this.discord.on("ready", this.ready);
-
-    this.includes.register(this.name, this.discord); // TODO: handle reconnecting on disconnect and all that here
+    this.discord.on("ready", this.ready); // TODO: handle reconnecting on disconnect and all that here
 
     this.discord.connect();
   }
 
-  getLogger() {
-    try {
-      return this.includes.get("logger")(this.name);
-    }
-    catch (_) {
-      return console;
-    }
+  execute() {
+    return this.discord;
   }
 
   ready() {
@@ -43,10 +36,6 @@ class Discord extends Lib {
 
     throw err;
   }
-
-  addCommand(commandName, callback) {
-
-  }
 }
 
-module.exports = new Discord();
+module.exports = Discord;

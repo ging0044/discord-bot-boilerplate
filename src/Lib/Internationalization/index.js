@@ -1,4 +1,4 @@
-const Lib = require("../lib");
+const Lib = require("..");
 const cldr_data = require("cldr-data");
 const Globalize = require("globalize");
 // TODO: load message files too
@@ -7,13 +7,15 @@ class Internationalization extends Lib {
   constructor() {
     super();
 
-    this.includes.register(this.name, Internationalization);
-
     this.loadI18nData()
       .then(() =>
         this.getLogger().info("Loaded i18n stuff"))
       .catch((e) =>
         this.getLogger().error(`Failed to load i18n stuff: ${e}\n${e.stack}`));
+  }
+
+  execute() {
+    return Internationalization;
   }
 
   async loadI18nData() {
@@ -41,4 +43,4 @@ class Internationalization extends Lib {
   // TODO: add wrappers around a bunch of i18n stuff (pluralize, dates, whatever)
 }
 
-module.exports = new Internationalization();
+module.exports = Internationalization;
