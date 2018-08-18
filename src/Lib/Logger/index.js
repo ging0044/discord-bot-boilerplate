@@ -23,6 +23,7 @@ class Logger extends Lib {
   }
 
   execute() {
+    this.createLogger(this.name).info("Ready");
     return this.createLogger;
   }
 
