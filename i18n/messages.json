@@ -1,0 +1,21 @@
+{
+  "root": {
+    "module": {
+      "pingpong": {
+        "pong": "pong",
+        "description": "Get pong"
+      },
+      "version": {
+        "description": "Get the version of the bot"
+      },
+      "i18n": {
+        "description": "Get some internationalization stats",
+        "reload": {
+          "description": "Reload the translations",
+          "reloadedMessages": "Reloaded all messages"
+        }
+      }
+    }
+  },
+  "en": {}
+}
