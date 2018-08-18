@@ -2,13 +2,12 @@ const util = require("util");
 const fs = require("fs");
 const path = require("path");
 
-const config = require("../../dependencies");
-
 const readdirPromise = util.promisify(fs.readdir);
 
 class DependencyManager {
   constructor() {
-    this._runtimeDirectories = config.runtimeDirectories;
+    this._config = require("../../dependencies");
+
     this._dependencies = new Map();
 
     this.get = this.get.bind(this);
@@ -36,7 +35,7 @@ class DependencyManager {
    * @returns {Dependency | undefined}
    */
   get(name) {
-    return this._dependencies.get(name.toLocaleLowerCase());
+    return this._dependencies.get(name);
   }
 
   /**
@@ -45,7 +44,13 @@ class DependencyManager {
    * @returns undefined
    */
   bootstrap() {
-    this._runtimeDirectories.forEach(directory =>
+    Object.entries(this._config.dependencies).forEach(([name, requirePath]) => {
+      const dep = require(path.resolve("./", requirePath));
+      const instance = new dep();
+      this._dependencies.set(name, instance.execute());
+    });
+
+    this._config.autoRequire.forEach(directory =>
       DependencyManager
         .requireDirectory(directory)
         .then(dependencies =>
@@ -60,7 +65,7 @@ class DependencyManager {
           dependencies.map(([name, dependency]) =>
             dependency
               ? this._dependencies.set(
-                name.toLocaleLowerCase(),
+                name,
                 dependency)
               : undefined))
         .catch(err =>
@@ -83,3 +88,4 @@ class DependencyManager {
 }
 
 module.exports = DependencyManager;
+
