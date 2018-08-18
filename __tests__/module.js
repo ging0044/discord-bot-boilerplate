@@ -1,4 +1,4 @@
-const Module = require("../src/module");
+const Module = require("../src/module"); // TODO: rewrite tests for refactor
 const dependencies = require("../src/dependencyManager");
 dependencies.init({
   discord: "discord",

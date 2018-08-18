@@ -1,4 +1,4 @@
-const dependencies = require("../src/dependencyManager");
+const dependencies = require("../src/dependencyManager"); // TODO: rewrite tests for refactor
 
 it("initializes dependencies with an empty map", () => {
   dependencies.init(new Map());

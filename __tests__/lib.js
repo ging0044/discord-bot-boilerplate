@@ -1,4 +1,4 @@
-const Lib = require("../src/Lib");
+const Lib = require("../src/Lib"); // TODO: rewrite tests for refactor
 const dependencies = require("../src/dependencyManager");
 
 it("correctly determines the name of the subclass", () => {
