@@ -42,18 +42,14 @@ class Internationalization extends Lib {
       );
       this.addMessage(locale, path)
         .catch(error =>
-          this.getLogger().error(
-            `Unable to add message for ${locale}: ${path}\n${
+          this.getLogger().warn(
+            `Unable to add message for "${locale}": "${path}"\n${
               error.stack
             }`
           ));
 
-      return `No translation available for ${path} in ${locale}`;
+      return `No translation available for "${path}" in "${locale}"`;
     }
-  }
-
-  addMessage(locale, path) {
-    return Promise.resolve();
   }
 
   reloadMessages() {
