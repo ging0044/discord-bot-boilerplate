@@ -31,6 +31,24 @@ class I18n extends Module {
         }
       }
     );
+
+    this.root.registerSubcommand(
+      "getMessage",
+      (msg, args) => {
+        const locale = args[0];
+        const path = args[1];
+
+        this.logger.debug(`Getting message "${path}" for locale "${locale}"`);
+
+        const message = this.i.getMessage(locale, path);
+        return message || this.i.getMessage("en", "Module/I18n/getMessage/noneFound", { path, locale });
+      },
+      {
+        argsRequired: true,
+        usage: this.i.getMessage("en", "Module/I18n/getMessage/usage"),
+        description: this.i.getMessage("en", "Module/I18n/getMessage/description")
+      }
+    );
   }
 }
 

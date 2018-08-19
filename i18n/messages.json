@@ -13,6 +13,11 @@
         "reload": {
           "description": "Reload the translations",
           "reloadedMessages": "Reloaded all messages"
+        },
+        "getMessage": {
+          "description": "Get a specific message in a specific locale",
+          "usage": "<locale> <message>",
+          "noneFound": "No message found for \"{path}\" in \"{locale}\""
         }
       }
     }
