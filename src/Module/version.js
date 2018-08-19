@@ -13,7 +13,7 @@ class Version extends Module {
       "version",
       this.app.version,
       {
-        description: this.i.getMessage("en", "module/version/description")
+        description: this.i.getMessage("en", "Module/Version/description")
       }
     );
   }

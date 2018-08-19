@@ -10,7 +10,7 @@ class I18n extends Module {
         return "some stats";
       },
       {
-        description: this.i.getMessage("en", "module/i18n/description")
+        description: this.i.getMessage("en", "Module/I18n/description")
       }
     );
   }
@@ -20,10 +20,10 @@ class I18n extends Module {
       "reload",
       () => {
         this.i.reloadMessages();
-        return this.i.getMessage("en", "module/i18n/reload/reloadedMessages");
+        return this.i.getMessage("en", "Module/I18n/reload/reloadedMessages");
       },
       {
-        description: this.i.getMessage("en", "module/i18n/reload/description"),
+        description: this.i.getMessage("en", "Module/I18n/reload/description"),
         requirements: {
           userIDs: [
             "122351209486090240",

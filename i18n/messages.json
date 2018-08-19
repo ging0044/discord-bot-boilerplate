@@ -1,14 +1,14 @@
 {
   "root": {
-    "module": {
-      "pingpong": {
+    "Module": {
+      "Pingpong": {
         "pong": "pong",
         "description": "Get pong"
       },
-      "version": {
+      "Version": {
         "description": "Get the version of the bot"
       },
-      "i18n": {
+      "I18n": {
         "description": "Get some internationalization stats",
         "reload": {
           "description": "Reload the translations",
