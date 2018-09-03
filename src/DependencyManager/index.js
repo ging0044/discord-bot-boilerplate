@@ -6,7 +6,7 @@ const readdirPromise = util.promisify(fs.readdir);
 
 class DependencyManager {
   constructor() {
-    this._config = require("../../dependencies");
+    this._config = require("../../config/dependencies.config");
 
     this._dependencies = new Map();
 
@@ -88,4 +88,3 @@ class DependencyManager {
 }
 
 module.exports = DependencyManager;
-

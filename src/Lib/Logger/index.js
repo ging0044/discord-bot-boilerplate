@@ -1,5 +1,5 @@
 const Lib = require("..");
-const loggerConfig = require("../../../logger.config");
+const loggerConfig = require("../../../config/logger.config");
 
 /**
  * Logging levels that are supported by both log4js and sentry
