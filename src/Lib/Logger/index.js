@@ -29,7 +29,7 @@ class Logger extends Lib {
 
   initRaven() {
     this.raven = require("raven");
-    this.raven.config(process.env.SENTRY_DSN).install();
+    this.raven.config(loggerConfig.sentry.dsn).install();
   }
 
   initLogger() {

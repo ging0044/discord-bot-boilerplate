@@ -1,4 +1,7 @@
 module.exports = {
+  sentry: {
+    dsn: ""
+  },
   appenders: {
     console: { type: "stdout" },
     consoleErr: { type: "stderr" },

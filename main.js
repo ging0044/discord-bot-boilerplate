@@ -1,4 +1,3 @@
-require("dotenv").config();
 const DependencyManager = require("./src/DependencyManager");
 const dependencyManager = DependencyManager.getInstance();
 
