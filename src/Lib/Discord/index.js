@@ -1,6 +1,8 @@
 const Eris = require("eris");
 const Lib = require("..");
 
+const config = require("../../../config/discord.config");
+
 class Discord extends Lib {
   constructor() {
     super();
@@ -8,7 +10,7 @@ class Discord extends Lib {
     this.ready = this.ready.bind(this);
     this.failedToLogIn = this.failedToLogIn.bind(this);
 
-    this.discord = new Eris.CommandClient(process.env.DISCORD_TOKEN, {}, {
+    this.discord = new Eris.CommandClient(config.token, {}, {
       description: "",
     });
 
