@@ -18,6 +18,10 @@
           "description": "Get a specific message in a specific locale",
           "usage": "<locale> <message>",
           "noneFound": "No message found for \"{path}\" in \"{locale}\""
+        },
+        "getLocale": {
+          "description": "Get the locale of the current channel",
+          "usage": ""
         }
       }
     }

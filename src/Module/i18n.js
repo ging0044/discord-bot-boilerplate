@@ -33,6 +33,20 @@ class I18n extends Module {
     );
 
     this.root.registerSubcommand(
+      "getLocale",
+      (msg) =>
+        this.config.findOrCreate({
+          where: {
+            id: msg.channel.id
+          }
+        }).spread(config => msg.channel.createMessage(`${msg.author.mention} ${config.locale}`)),
+      {
+        usage: this.i.getMessage("en", "Module/I18n/getLocale/usage"),
+        description: this.i.getMessage("en", "Module/I18n/getLocale/description"),
+      }
+    );
+
+    this.root.registerSubcommand(
       "getMessage",
       (msg, args) => {
         const locale = args[0];
@@ -46,7 +60,7 @@ class I18n extends Module {
       {
         argsRequired: true,
         usage: this.i.getMessage("en", "Module/I18n/getMessage/usage"),
-        description: this.i.getMessage("en", "Module/I18n/getMessage/description")
+        description: this.i.getMessage("en", "Module/I18n/getMessage/description"),
       }
     );
   }
