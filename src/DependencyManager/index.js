@@ -44,7 +44,7 @@ class DependencyManager {
    * @returns undefined
    */
   bootstrap() {
-    Object.entries(this._config.dependencies).forEach(([name, requirePath]) => {
+    this._config.dependencies.forEach(({ name, path: requirePath }) => {
       const dep = require(path.resolve("./", requirePath));
       const instance = new dep();
       this._dependencies.set(name, instance.execute());
