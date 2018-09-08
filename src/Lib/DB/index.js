@@ -1,4 +1,4 @@
-const Sequelize = require("sequilize-cockroachdb");
+const Sequelize = require("sequelize");
 const Lib = require("..");
 
 const config = require("../../../config/db.config");
