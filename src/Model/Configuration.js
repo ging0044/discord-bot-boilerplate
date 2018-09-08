@@ -1,22 +1,22 @@
-const dependencies = require("../dependencyManager");
-//const DB = dependencies.get("db");
+const dependencyManager = require("../DependencyManager").getInstance();
+const db = dependencyManager.get("db");
+const Sequelize = db.constructor;
 
-class Configuration { // TODO: figure out this whole config-in-db thing
-  constructor() {
+const Configuration = db.define("configuration", {
+  id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true,
+  },
 
-  }
+  locale: {
+    type: Sequelize.STRING,
+    defaultValue: "en",
+  },
+}, {
+  paranoid: true,
+  underscored: true,
+});
 
-  static find(id) {
-
-  }
-
-  save() {
-
-  }
-
-  execute() { // TODO
-    return this;
-  }
-}
+Configuration.sync();
 
 module.exports = Configuration;
