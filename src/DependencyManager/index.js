@@ -69,7 +69,7 @@ class DependencyManager {
                 dependency)
               : undefined))
         .catch(err =>
-          process.stderr.write(`Failed to load libs: ${err}\n${err.stack}`)));
+          process.stderr.write(`Failed to load ${directory}: ${err}\n${err.stack}`)));
   }
 
   /**
