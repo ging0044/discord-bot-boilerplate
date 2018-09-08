@@ -40,13 +40,13 @@ class Internationalization extends Lib {
       this.getLogger().warn(
         `No message "${path}" found for locale "${locale}"`
       );
-      this.addMessage(locale, path)
-        .catch(error =>
-          this.getLogger().warn(
-            `Unable to add message for "${locale}": "${path}"\n${
-              error.stack
-            }`
-          ));
+      // this.addMessage(locale, path)
+      //   .catch(error =>
+      //     this.getLogger().warn(
+      //       `Unable to add message for "${locale}": "${path}"\n${
+      //         error.stack
+      //       }`
+      //     ));
 
       return `No translation available for "${path}" in "${locale}"`;
     }
