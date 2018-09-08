@@ -1,4 +1,5 @@
 const DependencyManager = require("../DependencyManager");
+const Configuration = require("../Model/Configuration");
 
 /**
  * Abstract class for use in modules. These are loaded after all libs and models,
@@ -52,6 +53,28 @@ class Module {
      * @type {Internationalization}
      */
     this.i = this.dependencyManager.get("internationalization");
+
+    /**
+     * Configuration Model
+     *
+     * @type {Sequelize.Model}
+     * @see {@link http://docs.sequelizejs.com/class/lib/model.js~Model.html}
+     */
+    this.config = Configuration;
+  }
+
+  /**
+   * Get the locale of a Guild/Channel with the given ID
+   *
+   * @param {string} id The ID of the guild or channel
+   * @returns {Promise<string>} A promise of the locale
+   */
+  getLocale(id) {
+    return this.config.findOrCreate({
+      where: {
+        id: id
+      }
+    }).spread(config => config.locale);
   }
 }
 
