@@ -63,6 +63,28 @@ class I18n extends Module {
         description: this.i.getMessage("en", "Module/I18n/getMessage/description"),
       }
     );
+
+    this.root.registerSubcommand(
+      "setLocale",
+      (msg, args) => {
+        const id = msg.channel.id;
+        const locale = args[0];
+        this.config.findOrCreate({
+          where: {
+            id
+          }
+        }).spread(config => {
+          config.locale = locale;
+          config.save().then(() => {
+            msg.channel.createMessage(`${
+              msg.author.mention
+            } ${
+              this.i.getMessage("en", "Module/I18n/setLocale/setLocale", locale)
+            }`);
+          });
+        });
+      }
+    );
   }
 }
 

@@ -22,6 +22,11 @@
         "getLocale": {
           "description": "Get the locale of the current channel",
           "usage": ""
+        },
+        "setLocale": {
+          "setLocale": "Locale set to {0}",
+          "description": "Change the locale of the current channel",
+          "usage": "<locale>"
         }
       }
     }
