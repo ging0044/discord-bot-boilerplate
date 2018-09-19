@@ -13,7 +13,7 @@ class DB extends Lib {
       .then(
         () => this.getLogger().info("Connection successfully established"))
       .catch(
-        () => this.getLogger().error("Failed to establish connection: ", err));
+        (err) => this.getLogger().error("Failed to establish connection: ", err));
   }
 
   execute() {
