@@ -9,13 +9,8 @@ class Version extends Module {
   }
 
   execute() {
-    this.discord.registerCommand(
-      "version",
-      this.app.version,
-      {
-        description: this.i.getMessage("en", "Module/Version/description")
-      }
-    );
+    this.client.addCommand("version", (m) =>
+      m.author.mention + " " + this.app.version);
   }
 }
 

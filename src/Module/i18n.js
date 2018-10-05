@@ -1,90 +1,62 @@
 const Module = require(".");
+let Command;
 
 class I18n extends Module {
   constructor() {
     super();
 
-    this.root = this.discord.registerCommand(
-      "i18n",
-      () => {
-        return "some stats";
-      },
-      {
-        description: this.i.getMessage("en", "Module/I18n/description")
-      }
-    );
+    Command = this.dependencyManager.get("command");
+
+    this.root = new Command();
+    this.client.addCommand("i18n", this.root);
   }
 
   execute() {
-    this.root.registerSubcommand(
-      "reload",
-      () => {
+    this.root.setCommands({
+      "reload": (_args, _opts, message) => {
+        if (message.author.id !== "122351209486090240") {
+          return "not allowed";
+        }
         this.i.reloadMessages();
         return this.i.getMessage("en", "Module/I18n/reload/reloadedMessages");
       },
-      {
-        description: this.i.getMessage("en", "Module/I18n/reload/description"),
-        requirements: {
-          userIDs: [
-            "122351209486090240",
-          ]
-        }
-      }
-    );
-
-    this.root.registerSubcommand(
-      "getLocale",
-      (msg) =>
-        this.config.findOrCreate({
-          where: {
-            id: msg.channel.id
-          }
-        }).spread(config => msg.channel.createMessage(`${msg.author.mention} ${config.locale}`)),
-      {
-        usage: this.i.getMessage("en", "Module/I18n/getLocale/usage"),
-        description: this.i.getMessage("en", "Module/I18n/getLocale/description"),
-      }
-    );
-
-    this.root.registerSubcommand(
-      "getMessage",
-      (msg, args) => {
-        const locale = args[0];
-        const path = args[1];
-
-        this.logger.debug(`Getting message "${path}" for locale "${locale}"`);
-
-        const message = this.i.getMessage(locale, path);
-        return message || this.i.getMessage("en", "Module/I18n/getMessage/noneFound", { path, locale });
-      },
-      {
-        argsRequired: true,
-        usage: this.i.getMessage("en", "Module/I18n/getMessage/usage"),
-        description: this.i.getMessage("en", "Module/I18n/getMessage/description"),
-      }
-    );
-
-    this.root.registerSubcommand(
-      "setLocale",
-      (msg, args) => {
-        const id = msg.channel.id;
-        const locale = args[0];
-        this.config.findOrCreate({
-          where: {
-            id
-          }
-        }).spread(config => {
-          config.locale = locale;
-          config.save().then(() => {
-            msg.channel.createMessage(`${
-              msg.author.mention
+      "locale": {
+        "get": (_args, _opts, message) => {
+          return this.config.findOrCreate({
+            where: {
+              id: message.channel.id
+            }
+          }).spread(config => `${message.author.mention} ${config.locale}`);
+        },
+        "set": (args, _opts, message) => {
+          const id = message.channel.id;
+          const locale = args[0];
+          return this.config.findOrCreate({
+            where: {
+              id
+            }
+          }).spread(config => {
+            config.locale = locale;
+            return config.save().then(() => `${
+              message.author.mention
             } ${
               this.i.getMessage("en", "Module/I18n/setLocale/setLocale", locale)
             }`);
           });
-        });
-      }
-    );
+        },
+      },
+      "message": {
+        "get": (args) => {
+          const locale = args[0];
+          const path = args[1];
+
+          this.logger.debug(`Getting message "${path}" for locale "${locale}"`);
+
+          const message = this.i.getMessage(locale, path);
+          return message || this.i.getMessage("en", "Module/I18n/getMessage/noneFound", { path, locale });
+        },
+      },
+    });
   }
 }
 

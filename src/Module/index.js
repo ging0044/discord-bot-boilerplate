@@ -42,10 +42,10 @@ class Module {
     /**
      * Discord bot instance
      *
-     * @type {Eris.CommandClient}
-     * @see {@link https://abal.moe/Eris/docs/CommandClient}
+     * @type {Discord}
+     * @see {@link Discord}
      */
-    this.discord = this.dependencyManager.get("discord");
+    this.client = this.dependencyManager.get("discord");
 
     /**
      * Internationalization object
