@@ -25,15 +25,15 @@ class Command {
     let args = argv;
 
     for (;;) {
-      args = shift(args);
       if (handler instanceof Command) {
-        return handler.execute(args, ...params);
+        return handler.evaluate(shift(args), ...params);
       }
       else if (typeof handler === "function") {
-        return handler(args._, args, ...params);
+        const a = shift(args);
+        return handler(a._, a, ...params);
       }
       else if (typeof handler === "object") {
-        handler = handler[args._[0]];
+        handler = handler[shift(args)._[0]];
       }
       else {
         throw new Error(`Unknown command ${args._[0]}`);
