@@ -58,7 +58,7 @@ class DependencyManager {
             new dependency()))
         .then(dependencies =>
           dependencies.map(dependency => [
-            dependency.constructor.name, // TODO: use a config file for names, this is not good
+            dependency.constructor.name,
             dependency.execute && dependency.execute()
           ]))
         .then(dependencies =>
